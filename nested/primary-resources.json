@@ -234,7 +234,7 @@
           "fileUris": "[parameters('osSettings').scripts]"
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('bash primary.sh ', parameters('dnsname'), ' ', parameters('secondaryNodeCount'), ' ', parameters('mongoAdminUsername'), ' ', parameters('mongoAdminPassword'), ' ', parameters('staticIp'), ' ', parameters('zabbixServerIPAddress'))]"
+          "commandToExecute": "[concat('bash primary.sh ', parameters('replSetName'), ' ', parameters('secondaryNodeCount'), ' ', parameters('mongoAdminUsername'), ' ', parameters('mongoAdminPassword'), ' ', parameters('staticIp'), ' ', parameters('zabbixServerIPAddress'))]"
         }
       }
     }
