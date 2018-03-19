@@ -7,7 +7,7 @@ zabbixServer=$2
 
 disk_format() {
 	cd /tmp
-	apt-get install wget -y
+	yum install wget -y
 	for ((j=1;j<=3;j++))
 	do
 		wget https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh 
@@ -29,22 +29,25 @@ disk_format() {
 
 
 install_mongo3() {
+#create repo
+cat > /etc/yum.repos.d/mongodb-org-3.2.repo <<EOF
+[mongodb-org-3.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/3.2/x86_64/
+gpgcheck=0
+enabled=1
+EOF
 
-	# Import the public key
-	echo "Import the public key used by the package management system"
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+	#install
+	yum install -y mongodb-org
 
-	# Create a list file
-	echo "Create a list file for MongoDB"
-	echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+	#ignore update
+	sed -i '$a exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools' /etc/yum.conf
 
-	# Install update
-	echo "Install apt-get update"
-	apt-get -y update
-
-	# Install MongoDB
-	echo "Install mongodb"
-	apt-get -y install mongodb-org
+	#disable selinux
+	sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
+	sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+	setenforce 0
 
 	#kernel settings
 	if [[ -f /sys/kernel/mm/transparent_hugepage/enabled ]];then
@@ -56,13 +59,22 @@ install_mongo3() {
 
 	#configure
 	sed -i 's/\(bindIp\)/#\1/' /etc/mongod.conf
+
+	#set keyfile
+	echo "vfr4CDE1" > /etc/mongokeyfile
+	chown mongod:mongod /etc/mongokeyfile
+	chmod 600 /etc/mongokeyfile
+	sed -i 's/^#security/security/' /etc/mongod.conf
+	sed -i '/^security/akeyFile: /etc/mongokeyfile' /etc/mongod.conf
+	sed -i 's/^keyFile/  keyFile/' /etc/mongod.conf
+
 }
 
 
 install_zabbix() {
 	#install zabbix agent
 	cd /tmp
-	apt-get install -y gcc wget > /dev/null
+	yum install -y gcc wget > /dev/null
 	wget http://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.2.5/zabbix-2.2.5.tar.gz > /dev/null
 	tar zxvf zabbix-2.2.5.tar.gz
 	cd zabbix-2.2.5

@@ -26,8 +26,8 @@
     "dnsNamePrefix": {
       "value": "GEN-UNIQUE"
     },
-    "ubuntuOsVersion": {
-        "value": "16.04.0-LTS"
+    "centOsVersion": {
+        "value": "7.0"
     },
     "primaryNodeVmSize": {
       "value": "Standard_A3"
