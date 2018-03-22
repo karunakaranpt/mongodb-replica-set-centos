@@ -10,7 +10,7 @@ usage() { echo "Usage: $0 -i <subscriptionId> -g <resourceGroupName> -n <deploym
 
 declare subscriptionId=""
 declare resourceGroupName=""
-declare deploymentName=""
+declare deploymentName="mongoreplica--$(date +%Y%m%d_%H%M%S)"
 declare resourceGroupLocation=""
 
 # Initialize parameters specified from command line
@@ -85,6 +85,7 @@ if [ -z "$subscriptionId" ] || [ -z "$resourceGroupName" ] || [ -z "$deploymentN
 fi
 
 #login to azure using your credentials
+
 az account show 1> /dev/null
 
 if [ $? != 0 ];
