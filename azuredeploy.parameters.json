@@ -34,9 +34,6 @@
     },
     "secondaryNodeVmSize": {
       "value": "Standard_A3"
-    },
-    "zabbixServerIPAddress": {
-      "value": "Null"
     }
   }
 }

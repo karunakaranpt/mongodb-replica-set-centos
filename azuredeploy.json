@@ -114,13 +114,6 @@
       "metadata": {
         "description": "The size of the virtual machines used when provisioning secondary node(s)"
       }
-    },
-    "zabbixServerIPAddress": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The zabbix server IP which will monitor the mongodb nodes' mongodb status. Null means no zabbix server."
-      }
     }
   },
   "variables": {
@@ -259,9 +252,6 @@
           "vmSize": {
             "value": "[parameters('secondaryNodeVmSize')]"
           },
-          "zabbixServerIPAddress": {
-            "value": "[parameters('zabbixServerIPAddress')]"
-          },
           "osSettings": {
             "value": "[variables('secondaryOsSettings')]"
           }
@@ -327,9 +317,6 @@
           },
           "vmSize": {
             "value": "[parameters('primaryNodeVmSize')]"
-          },
-          "zabbixServerIPAddress": {
-            "value": "[parameters('zabbixServerIPAddress')]"
           },
           "osSettings": {
             "value": "[variables('primaryOsSettings')]"

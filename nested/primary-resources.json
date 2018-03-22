@@ -47,9 +47,6 @@
     "subnet": {
       "type": "object"
     },
-    "zabbixServerIPAddress": {
-      "type": "string"
-    },
     "staticIp": {
       "type": "string"
     }
@@ -57,7 +54,6 @@
   "variables": {
     "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "apiVersion": "2015-06-15",
-    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]",
     "securityGroupName": "[concat(parameters('namespace'), parameters('vmbasename'), 'nsg')]"
   },
   "resources": [
@@ -93,34 +89,6 @@
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 110,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "zabbixAgent",
-            "properties": {
-              "description": "Allows zabbix monitoring",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "10050",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 120,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "zabbixAgent1",
-            "properties": {
-              "description": "Allows zabbix monitoring",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "10051",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 130,
               "direction": "Inbound"
             }
           }
@@ -192,19 +160,12 @@
               "name": "datadisk1",
               "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
               "lun": 0,
-              "vhd": {
-                "uri": "[concat('http://', variables('storageAccountName'),'.blob.core.windows.net/vhds/', 'datadisk1.vhd')]"
-              },
               "createOption": "Empty",
               "caching": "ReadWrite"
             }
           ],
           "osDisk": {
             "name": "osdisk",
-            "vhd": {
-              "uri": "[concat('http://', variables('storageAccountName'),'.blob.core.windows.net/vhds/', parameters('vmbasename'), '-osdisk.vhd')]"
-            },
-            "caching": "ReadWrite",
             "createOption": "FromImage"
           }
         },
@@ -234,7 +195,7 @@
           "fileUris": "[parameters('osSettings').scripts]"
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('bash primary.sh ', parameters('replSetName'), ' ', parameters('secondaryNodeCount'), ' ', parameters('mongoAdminUsername'), ' ', parameters('mongoAdminPassword'), ' ', parameters('staticIp'), ' ', parameters('zabbixServerIPAddress'))]"
+          "commandToExecute": "[concat('bash primary.sh ', parameters('replSetName'), ' ', parameters('secondaryNodeCount'), ' ', parameters('mongoAdminUsername'), ' ', parameters('mongoAdminPassword'), ' ', parameters('staticIp'))]"
         }
       }
     }

@@ -8,9 +8,7 @@
 </a>
 
 
-This template deploys a MongoDB Replica Set on Ubuntu and enables Zabbix monitoring, and allows user to define the number of secondary nodes. The replica set has a primary node, 2 secondary nodes by default.
-
-This template also allows you to input your existing zabbix server IP address to monitor these MongoDB nodes.
+This template deploys a MongoDB Replica Set on Ubuntu, and allows user to define the number of secondary nodes. The replica set has a primary node, 2 secondary nodes by default.
 
 The replica set nodes are exposed on public IP addresses that you can access through SSH on the standard port, also mongodb port 27017 open.
 
