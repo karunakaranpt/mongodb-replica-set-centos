@@ -163,11 +163,7 @@
               "createOption": "Empty",
               "caching": "ReadWrite"
             }
-          ],
-          "osDisk": {
-            "name": "osdisk",
-            "createOption": "FromImage"
-          }
+          ]
         },
         "networkProfile": {
           "networkInterfaces": [
