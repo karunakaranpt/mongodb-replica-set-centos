@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "azureuser"
+      "value": "sshuser"
     },
     "adminPassword": {
-      "value": "GEN-PASSWORD"
+      "value": "Test12..[][]"
     },
     "mongoAdminUsername": {
       "value": "mongoadmin"
     },
     "mongoAdminPassword": {
-      "value": "GEN-PASSWORD"
+      "value": "Test12..[][]"
     },
     "environment": {
       "value": "AzureCloud"
@@ -24,7 +24,7 @@
       "value": 20
     },
     "dnsNamePrefix": {
-      "value": "GEN-UNIQUE"
+      "value": "mongodbcentos"
     },
     "centOsVersion": {
         "value": "7.0"
