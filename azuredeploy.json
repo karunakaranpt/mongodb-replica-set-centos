@@ -138,7 +138,9 @@
     "namespace": "mongodb-",
     "virtualNetworkName": "myVNET1",
     "numDataDisks": "4",
-    "apiVersion": "2015-01-01",
+    "resourceApiVersion": "2017-08-01h",
+    "networkApiVersion": "2018-03-01",
+    "computeApiVersion": "2017-12-01",
     "networkSettings": {
       "virtualNetworkName": "[variables('virtualNetworkName')]",
       "addressPrefix": "10.0.0.0/16",
@@ -184,7 +186,7 @@
     {
       "name": "shared",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('resourceApiVersion')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -197,6 +199,12 @@
           },
           "namespace": {
             "value": "[variables('namespace')]"
+          },
+          "networkApiVersion": {
+            "value": "[variables('networkApiVersion')]"
+          },
+          "computeApiVersion": {
+            "value": "[variables('computeApiVersion')]"
           }
         }
       }
@@ -204,7 +212,7 @@
     {
       "name": "[concat('secondaryNode', copyindex())]",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('resourceApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'shared')]"
       ],
@@ -254,6 +262,12 @@
           },
           "osSettings": {
             "value": "[variables('secondaryOsSettings')]"
+          },
+          "networkApiVersion": {
+            "value": "[variables('networkApiVersion')]"
+          },
+          "computeApiVersion": {
+            "value": "[variables('computeApiVersion')]"
           }
         }
       }
@@ -261,7 +275,7 @@
     {
       "name": "primaryNode",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('resourceApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'shared')]",
         "['vmLoop']"
@@ -320,6 +334,12 @@
           },
           "osSettings": {
             "value": "[variables('primaryOsSettings')]"
+          },
+          "networkApiVersion": {
+            "value": "[variables('networkApiVersion')]"
+          },
+          "computeApiVersion": {
+            "value": "[variables('computeApiVersion')]"
           }
         }
       }

@@ -13,6 +13,18 @@
       "metadata": {
         "Description": "namespace"
       }
+    },
+    "networkApiVersion": {
+      "type": "string",
+      "metadata": {
+        "Description": "Network Api Version"
+      }
+    },
+    "computeApiVersion": {
+      "type": "string",
+      "metadata": {
+        "Description": "Compute Api Version"
+      }
     }
   },
   "variables": {
@@ -20,14 +32,14 @@
   },
   "resources": [
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('computeApiVersion')]",
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[concat(parameters('namespace'), 'set')]",
       "location": "[resourceGroup().location]",
       "properties": {}
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('networkApiVersion')]",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('networkSettings').virtualNetworkName]",
       "location": "[resourceGroup().location]",
