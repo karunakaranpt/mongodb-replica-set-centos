@@ -153,12 +153,6 @@
               "lun": 0,
               "createOption": "Empty",
               "caching": "ReadWrite"
-            },
-            {
-              "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
-              "lun": 1,
-              "createOption": "Empty",
-              "caching": "ReadWrite"
             }
           ],
           "osDisk": {

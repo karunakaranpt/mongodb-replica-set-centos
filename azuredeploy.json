@@ -139,7 +139,7 @@
     "virtualNetworkName": "myVNET1",
     "numDataDisks": "4",
     "resourceApiVersion": "2017-08-01",
-    "networkApiVersion": "2017-08-01",
+    "networkApiVersion": "2018-03-01",
     "computeApiVersion": "2017-12-01",
     "networkSettings": {
       "virtualNetworkName": "[variables('virtualNetworkName')]",
